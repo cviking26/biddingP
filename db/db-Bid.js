@@ -1,24 +1,23 @@
 //require Mongo Stuff
 var mongoose = require('mongoose'),
+	User = require('./db-User'),
+	Article = require('./db-Article'),
 	Schema = mongoose.Schema;
 
 //create Bidding Schema
 var Bid = new Schema({
-	username : String,
-	email : String,
-	bids : { type: String, ref: 'Bid' }
+	bidderId : [{ type: Schema.Types.ObjectId, ref: 'User' }],
+	articleId : [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+	bidValue : Number,
+	timestamp : Date
 });
 
 module.exports = {
-	init : function(){
-		//collection = db.get(setCollection);
-	},
-	getUser : function(param, callback){
+	setBid : function(param, callback){
 		//this.init();
-		User = mongoose.model('usercollection', User);
+		User = mongoose.model('bidcollection', User);
 		param = param || {};
 		//User.find(param, callback);
-		User.find(param, callback);
+		Bid.find(param, callback);
 	}
-
 };

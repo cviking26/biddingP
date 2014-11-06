@@ -1,29 +1,45 @@
 //require Mongo Stuff
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Bid = require('./db-Bid'),
+	Schema = mongoose.Schema,
+	autoIncrement = require('mongoose-auto-increment');
+
 
 // Create User Schema
 var User = new Schema({
 	bidderId : String,
 	firstname : String,
 	lastname : String,
-	firstname : String,
-	firstname : String,
-
-
-	bids : { type: String, ref: 'Bid' }
+	email : String,
+	password : String,
+	active : Boolean,
+	bids : [{ type: Schema.Types.ObjectId, ref: 'Bid' }]
 });
 
+User.plugin(autoIncrement.plugin, {
+	model: 'User',
+	field: 'bidderId',
+	startAt: 100,
+	incrementBy: 1
+});
+
+User = mongoose.model('usercollection', User);
+
 module.exports = {
-	init : function(){
-		//collection = db.get(setCollection);
-	},
 	getUser : function(param, callback){
-		//this.init();
-		User = mongoose.model('usercollection', User);
 		param = param || {};
 		//User.find(param, callback);
 		User.find(param, callback);
+	},
+	insertUser : function(data){
+		var user = new User(data);
+		user.save( function(error, data){
+			if(error){
+				//console.log(error);
+			}
+			else{
+				//console.log(data);
+			}
+		});
 	}
-
 };

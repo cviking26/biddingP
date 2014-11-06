@@ -5,6 +5,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var passport = require('./auth'); //passport registration
 var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 
 var port = process.env.PORT || 1337;
 
@@ -14,7 +15,7 @@ var server = require('http').Server(app);
 global.io = require('socket.io')(server);
 
 
-mongoose.connect('mongodb://localhost:/bidding');
+var connection = mongoose.connect('mongodb://localhost:/bidding');
 
 mongoose['connection']
 	.on('error', console.error.bind(console, 'connection error:'))
@@ -22,7 +23,7 @@ mongoose['connection']
 		console.log("mongo: connected to database bidding");
 	});
 
-
+autoIncrement.initialize(connection);
 
 // configure application
 app.set('view engine', 'ejs');
@@ -41,6 +42,7 @@ require('./io/io.js');
 
 // define routes
 app.use(require('./routes/login'));
+app.use(require('./routes/admin/article'));
 
 // start server and include socket.io
 server.listen(port, function(){

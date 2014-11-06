@@ -1,33 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db/db');
+var dbUser = require('../db/db-User'),
+	dbArticle = require('../db/db-Article');
 var passport = require('../auth.js');
 
-router.get('/', function(req, res){
-	res.redirect('/getuser');
-});
+var bidderIdVal = 0;
 
-router.post('/adduser', loggedIn, function(req, res){
-	var collection = req.db.get('usercollection');
-
-	collection.insert({
-		username : req.body.nameVal,
-		email : req.body.emailVal
-	});
-
-	res.redirect('/getuser');
-});
-
-router.get('/getuser', loggedIn, function(req, res){
-	var filterParam;
-	db.getUser(filterParam, function(e, docs){
-		res.render('index', {
-			userlist : docs,
-			moep : req.user
-		})
-	});
-});
-
+/* LOGIN */
+//Post from Login form - login.ejs
 router.post('/login',
 	passport.authenticate('local', {
 		successRedirect: '/',
@@ -37,6 +17,33 @@ router.post('/login',
 
 router.get('/login', function(req, res){
 	res.render('login');
+});
+
+
+/* INDEX */
+router.get('/', loggedIn, function(req, res){
+	dbArticle.getAllArticles({}, function(e, docs){
+		console.log(docs)
+		res.render('index', {
+			articles : docs
+		});
+	});
+});
+
+
+/* ADD NEW USER */
+//Post from addUSer form - login.ejs
+router.post('/adduser', function(req, res){
+	var data = {
+		firstname : req.body.firstname,
+		lastname : 	req.body.lastname,
+		email : req.body.email,
+		password : req.body.password,
+		active : true
+	};
+	dbUser.insertUser(data);
+
+	res.redirect('/');
 });
 
 module.exports = router;

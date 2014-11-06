@@ -1,13 +1,14 @@
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({
+		usernameField: 'biddingid'
+	},
 	function(username, password, done){
 		//database connect!!!
 		if( username === 'admin' && password === 'dennis'){
 			return done(null, {username: 'admin'});
 		}
-		console.log('also das läuft');
 		return done(null, false);
 	}
 ));

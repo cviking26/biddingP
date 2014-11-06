@@ -13,20 +13,16 @@
 	</script>
 </head>
 <body>
-<h1>Hallou <%= moep.username %></h1>
-	<h1>Userlist is..</h1>
-		<% if(typeof userlist != "undefined"){
-			for(var index in userlist) {
-		%>
-			<h1> User:<%= userlist[index].username %> e-Mail: <%= userlist[index].email %></h1>
-		<%
-				}
-			}
-		%>
-		<form action="/adduser" method="post">
-			<input name="nameVal"/>
-			<input name="emailVal"/>
-			<input type="submit"/>
-		</form>
+<h1>AÜS</h1>
+<a href="/admin/articleedit">Artikel anlegen</a>
+<% for(var index in articles){ %>
+	<p><b>article Id</b>     <%= articles[index].articleId %></p>
+	<p><b>article Name</b>   <%= articles[index].articleName %></p>
+	<p><b>duration</b>       <%= articles[index].duration %></p>
+	<p><b>start Price </b>   <%= articles[index].startPrice %></p>
+	<p><b>bid Interval </b>  <%= articles[index].bidInterval %></p>
+	<p><b>image Path </b>    <%= articles[index].imagePath %></p>
+	<p>--------------</p>
+<%}%>
 </body>
 </html>
