@@ -4,6 +4,7 @@ var session = require('express-session')
 var path = require('path');
 var bodyParser = require('body-parser');
 var passport = require('./auth'); //passport registration
+var mongoose = require('mongoose');
 
 var port = process.env.PORT || 1337;
 
@@ -11,6 +12,17 @@ var app = express();
 var server = require('http').Server(app);
 
 global.io = require('socket.io')(server);
+
+
+mongoose.connect('mongodb://localhost:/bidding');
+
+mongoose['connection']
+	.on('error', console.error.bind(console, 'connection error:'))
+	.once('open', function callback () {
+		console.log("mongo: connected to database bidding");
+	});
+
+
 
 // configure application
 app.set('view engine', 'ejs');

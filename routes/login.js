@@ -20,7 +20,6 @@ router.post('/adduser', loggedIn, function(req, res){
 
 router.get('/getuser', loggedIn, function(req, res){
 	var filterParam;
-	console.log(req.user);
 	db.getUser(filterParam, function(e, docs){
 		res.render('index', {
 			userlist : docs,
