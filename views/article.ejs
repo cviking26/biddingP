@@ -1,18 +1,11 @@
-<!doctype html>
-<html lang="de">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="/public/js/events.js"></script>
-</head>
-<body>
+<% include partitials/header.ejs%>
+
+
 	<h1>ADS</h1>
 	<a href="/admin/articleedit">Artikel anlegen</a>
+	<div class="duration"><%= articleSet.duration %></div>
 	<p><b>article Id</b>     <%= articleSet.articleId %></p>
 	<p><b>article Name</b>   <%= articleSet.articleName %></p>
-	<p><b>duration</b>       <%= articleSet.duration %></p>
 	<p><b>start Price </b>   <%= articleSet.startPrice %></p>
 	<p><b>bid Interval </b>  <%= articleSet.bidInterval %></p>
 	<p><b>image Path </b>    <%= articleSet.imagePath %></p>
@@ -20,6 +13,5 @@
 	<p>--------------</p>
 
 	<p id="bid" type="button">Bieten</p>
-	<!-- <a id="bid" href="/bid/<%= articleSet.articleId %>">Bieten</a> -->
-</body>
-</html>
+
+<% include partitials/footer.ejs%>

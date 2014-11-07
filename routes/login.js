@@ -46,4 +46,9 @@ router.post('/adduser', function(req, res){
 	res.redirect('/');
 });
 
+router.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+});
+
 module.exports = router;

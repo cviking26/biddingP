@@ -5,10 +5,10 @@ var mongoose = require('mongoose'),
 	autoIncrement = require('mongoose-auto-increment');
 
 //create Article Schema
-var Article = new Schema({
+var ArticleSchema = new Schema({
 	articleId : Number,
 	articleName : String,
-	duration : Number,
+	duration : String,
 	start : Date,
 	end : Date,
 	startPrice : Number,
@@ -17,10 +17,10 @@ var Article = new Schema({
 	imagePath : String,
 	active : Boolean,
 	finished : Boolean,
-	bids : [{ type: Schema.Types.ObjectId, ref: 'Bid' }]
+	bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
 });
 
-Article.plugin(autoIncrement.plugin, {
+ArticleSchema.plugin(autoIncrement.plugin, {
 	model: 'Article',
 	field: 'articleId',
 	startAt: 10000,
@@ -28,7 +28,7 @@ Article.plugin(autoIncrement.plugin, {
 });
 
 
-Article = mongoose.model('articlecollection', Article);
+Article = mongoose.model('articlecollection', ArticleSchema);
 module.exports = {
 	getAllArticles : function(param, callback){
 		param = param || {};

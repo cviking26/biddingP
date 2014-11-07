@@ -6,24 +6,24 @@ var mongoose = require('mongoose'),
 
 
 // Create User Schema
-var User = new Schema({
+var UserSchema = new Schema({
 	bidderId : Number,
 	firstname : String,
 	lastname : String,
 	email : String,
 	password : String,
 	active : Boolean,
-	bids : [{ type: Schema.Types.ObjectId, ref: 'Bid' }]
+	bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
 });
 
-User.plugin(autoIncrement.plugin, {
+UserSchema.plugin(autoIncrement.plugin, {
 	model: 'User',
 	field: 'bidderId',
 	startAt: 100,
 	incrementBy: 1
 });
 
-User = mongoose.model('usercollection', User);
+User = mongoose.model('usercollection', UserSchema);
 
 module.exports = {
 	getUser : function(param, callback){
@@ -35,7 +35,7 @@ module.exports = {
 		var user = new User(data);
 		user.save( function(error, data){
 			if(error){
-				//console.log(error);
+				console.log(error);
 			}
 			else{
 				//console.log(data);

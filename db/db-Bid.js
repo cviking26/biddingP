@@ -5,14 +5,14 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 //create Bidding Schema
-var Bid = new Schema({
-	bidder : { type: Schema.Types.ObjectId, ref: 'User' },
-	article : { type: Schema.ObjectId, ref: 'Article' },
+var BidSchema = new Schema({
+	bidder : { type: Schema.Types.ObjectId, ref: 'UserSchema' },
+	article : { type: Schema.ObjectId, ref: 'ArticleSchema' },
 	bidValue : Number,
 	timestamp : Date
 });
 
-Bid = mongoose.model('bidcollection', Bid);
+Bid = mongoose.model('bidcollection', BidSchema);
 module.exports = {
 	setBid : function(data, callback){
 		console.log('++++');
