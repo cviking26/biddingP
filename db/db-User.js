@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 // Create User Schema
 var User = new Schema({
-	bidderId : String,
+	bidderId : Number,
 	firstname : String,
 	lastname : String,
 	email : String,

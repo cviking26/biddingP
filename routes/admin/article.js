@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbArticle = require('../../db/db-Article');
 
+
 /* Articleedit PAge */
 router.get('/admin/articleedit', loggedIn, function(req, res){
 	res.render('admin/articleedit');
@@ -14,6 +15,7 @@ router.post('/admin/articleadd', loggedIn, function(req, res){
 		articleName : req.body.articleName,
 		duration : 	req.body.duration,
 		startPrice : req.body.startPrice,
+		currentPrice : req.body.startPrice,
 		bidInterval : req.body.bidInterval,
 		imagePath : req.body.imagePath,
 		active : true,

@@ -27,8 +27,8 @@ Article.plugin(autoIncrement.plugin, {
 	incrementBy: 1
 });
 
-Article = mongoose.model('articlecollection', Article);
 
+Article = mongoose.model('articlecollection', Article);
 module.exports = {
 	getAllArticles : function(param, callback){
 		param = param || {};
@@ -38,7 +38,7 @@ module.exports = {
 		var article = new Article(data);
 		article.save( function(error, data){
 			if(error){
-				//console.log(error);
+				console.log(error);
 			}
 			else{
 				//console.log(data);
