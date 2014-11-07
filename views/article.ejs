@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/public/js/events.js"></script>
+	<script>
+
+		/*var socket = io.connect('http://localhost:1337');
+		socket.on('news', function (data) {
+			console.log(data);
+			socket.emit('my other event', { 'hello': data.hello });
+		});*/
+	</script>
+</head>
+<body>
+<h1>ADS</h1>
+<a href="/admin/articleedit">Artikel anlegen</a>
+<p><b>article Id</b>     <%= articleSet.articleId %></p>
+<p><b>article Name</b>   <%= articleSet.articleName %></p>
+<p><b>duration</b>       <%= articleSet.duration %></p>
+<p><b>start Price </b>   <%= articleSet.startPrice %></p>
+<p><b>bid Interval </b>  <%= articleSet.bidInterval %></p>
+<p><b>image Path </b>    <%= articleSet.imagePath %></p>
+<p>--------------</p>
+
+<input id="bid" type="button" value="bieten"/>
+</body>
+</html>

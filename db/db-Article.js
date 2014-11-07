@@ -44,6 +44,11 @@ module.exports = {
 				//console.log(data);
 			}
 		});
+	},
+	getArticleById : function(param, callback){
+		Article.findOne({
+			articleId : param
+		}, callback)
 	}
 
 };

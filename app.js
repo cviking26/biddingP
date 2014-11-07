@@ -29,6 +29,9 @@ autoIncrement.initialize(connection);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// serve static files
+app.use('/public', express.static(__dirname + '/public'));
+
 //set up Authentification
 app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());

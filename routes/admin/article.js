@@ -25,6 +25,19 @@ router.post('/admin/articleadd', loggedIn, function(req, res){
 	res.redirect('/');
 });
 
+router.get('/article/:articleId', loggedIn, function(req, res){
+	var articleId = req.params.articleId;
+	console.log('articleId: ', articleId);
+	var article = dbArticle.getArticleById(articleId, function(err, docs){
+		console.log(docs)
+		res.render('article', {
+			articleSet : docs
+		});
+	});
+
+	//next();
+});
+
 // Route abfangen, die mit get parametern bestimmt ist (ADS)
 
 module.exports = router;
