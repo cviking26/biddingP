@@ -17,7 +17,7 @@ var ArticleSchema = new Schema({
 	imagePath : String,
 	active : Boolean,
 	finished : Boolean,
-	bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
+	bids : {}
 });
 
 ArticleSchema.plugin(autoIncrement.plugin, {
@@ -41,7 +41,7 @@ module.exports = {
 		imagePath : String,
 		active : Boolean,
 		finished : Boolean,
-		bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
+		bids : {}
 	}),
 	Article : mongoose.model('articlecollection', ArticleSchema),
 	getAllArticles : function(param, callback){
@@ -63,6 +63,28 @@ module.exports = {
 		this.Article.findOne({
 			articleId : param
 		}, callback)
+	},
+	getArticleByObjId : function(param, callback){
+		this.Article.findOne({
+			_id : param
+		}, callback)
+	},
+	updateArticleById : function(param, callback){
+		console.log('typeof param.id');
+		console.log(typeof param.id);
+		this.getArticleByObjId(param.id, function(err, data){
+			if(err){
+				console.log(err);
+				return
+			}
+			var newPrice = data.currentPrice + param.increaseVal;
+			console.log('+++++newPrice+++++');
+			console.log(newPrice);
+			this.Article.findByIdAndUpdate(param.id, {
+				$set: { bids: param.bidId, currentPrice: newPrice }
+			}, callback)
+
+		}.bind(this));
 	}
 
 };
