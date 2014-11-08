@@ -35,18 +35,16 @@ router.get('/article/:articleId', loggedIn, function(req, res){
 			console.log(err);
 			return;
 		}
-		dbBid.getBidList(articleId, function(err, bidDocs){
-			if(err){
-				console.log(err);
-				return;
-			}
-			console.log('bidDocs')
-			console.log(bidDocs)
+		console.log('articleDocs')
+		console.log(articleDocs)
+		dbBid.getBidList('10006', function(err, bidDocs){
+			console.log('bidDocs');
+			console.log(bidDocs);
 			res.render('article', {
 				articleSet : articleDocs,
 				bidList : bidDocs
 			});
-		})
+		});
 	});
 });
 

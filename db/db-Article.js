@@ -1,6 +1,5 @@
 //require Mongo Stuff
 var mongoose = require('mongoose'),
-	Bid = require('./db-Bid'),
 	Schema = mongoose.Schema,
 	autoIncrement = require('mongoose-auto-increment');
 
