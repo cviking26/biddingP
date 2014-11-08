@@ -1,41 +1,48 @@
 //require Mongo Stuff
 var mongoose = require('mongoose'),
-	User = require('./db-User'),
-	Article = require('./db-Article'),
+	UserExport = require('./db-User.js'),
+	ArticleExport = require('./db-Article.js'),
 	Schema = mongoose.Schema;
+//var ObjectId = require('mongoose').Types.ObjectId;
+
+var User = UserExport.User;
+var Article = ArticleExport.Article;
+
+/*var UserSchema = User.UserSchema;
+var ArticleSchema = Article.ArticleSchema;*/
 
 //create Bidding Schema
 var BidSchema = new Schema({
-	bidder : { type: Schema.Types.ObjectId, ref: 'UserSchema' },
-	article : { type: Schema.ObjectId, ref: 'ArticleSchema' },
+	bidder : { type: Schema.Types.ObjectId, ref: 'User' },
+	article : { type: Schema.Types.ObjectId, ref: 'Article' },
 	bidValue : Number,
 	timestamp : Date
 });
 
-Bid = mongoose.model('bidcollection', BidSchema);
 module.exports = {
+	Bid : mongoose.model('bidcollection', BidSchema),
 	setBid : function(data, callback){
-		console.log('++++');
-		console.log(data);
-		console.log('++++');
-
-		var bid = new Bid(data);
+		var bid = new this.Bid(data);
 		bid.save( function(error, data){
 			if(error){
 				console.log(error);
 			}
 			else{
-				//console.log(data);
+				callback(data);
 			}
 		});
-		Bid
-			.findOne({ _id: '545ccfb452943c6a359e026f' })
+	},
+	getBid : function(param, callback){
+		this.Bid
+			.findOne({ _id: param })
 			.populate('bidder article')
 			.exec(function (err, data) {
+				console.log('EXEC');
 				console.log('error: ', err);
 				console.log('data: ', data);
-				// prints "The creator is Aaron"
+				if (!err) {
+					callback(data);
+				}
 			});
-
 	}
 };

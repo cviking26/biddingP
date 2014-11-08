@@ -28,14 +28,28 @@ ArticleSchema.plugin(autoIncrement.plugin, {
 });
 
 
-Article = mongoose.model('articlecollection', ArticleSchema);
 module.exports = {
+	ArticleSchema : new Schema({
+		articleId : Number,
+		articleName : String,
+		duration : String,
+		start : Date,
+		end : Date,
+		startPrice : Number,
+		currentPrice : Number,
+		bidInterval : Number,
+		imagePath : String,
+		active : Boolean,
+		finished : Boolean,
+		bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
+	}),
+	Article : mongoose.model('articlecollection', ArticleSchema),
 	getAllArticles : function(param, callback){
 		param = param || {};
-		Article.find(param, callback);
+		this.Article.find(param, callback);
 	},
 	insertArticle : function(data){
-		var article = new Article(data);
+		var article = new this.Article(data);
 		article.save( function(error, data){
 			if(error){
 				console.log(error);
@@ -46,7 +60,7 @@ module.exports = {
 		});
 	},
 	getArticleById : function(param, callback){
-		Article.findOne({
+		this.Article.findOne({
 			articleId : param
 		}, callback)
 	}

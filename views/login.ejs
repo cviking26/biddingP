@@ -19,7 +19,7 @@
 		<input type="submit" />
 	</form>
 
-<% if(bidderId){%>
+<% if(typeof(bidderId) != "undefined"){%>
 	<h2>Ihre Bieter ID Lautet: <%= bidderId %></h2>
 <%}%>
 </body>
