@@ -41,5 +41,14 @@ module.exports = {
 				}
 				callback(data);
 			});
+	},
+	getBidList : function (param, callback){
+		this.Bid.find({article : param}, function(err, docs){
+			if(err){
+				console.log('Error db-Bid.js-48');
+				return;
+			}
+			callback(docs);
+		})
 	}
 };

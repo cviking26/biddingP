@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var dbArticle = require('../../db/db-Article');
+var dbArticle = require('../../db/db-Article'),
+	dbBid = require('../../db/db-Bid');
 
 // Article edit
 router.get('/admin/articleedit', loggedIn, function(req, res){
@@ -29,10 +30,23 @@ router.post('/admin/articleadd', loggedIn, function(req, res){
 // Get article by Id
 router.get('/article/:articleId', loggedIn, function(req, res){
 	var articleId = req.params.articleId;
-	var article = dbArticle.getArticleById(articleId, function(err, docs){
-		res.render('article', {
-			articleSet : docs
-		});
+	dbArticle.getArticleById(articleId, function(err, articleDocs){
+		if(err){
+			console.log(err);
+			return;
+		}
+		dbBid.getBidList(articleId, function(err, bidDocs){
+			if(err){
+				console.log(err);
+				return;
+			}
+			console.log('bidDocs')
+			console.log(bidDocs)
+			res.render('article', {
+				articleSet : articleDocs,
+				bidList : bidDocs
+			});
+		})
 	});
 });
 

@@ -1,6 +1,6 @@
 <% include partitials/header.ejs%>
 
-
+<div style=" background-color: greenyellow;float: left; height: 100%; width: 50%;">
 	<h1>ADS</h1>
 	<a href="/admin/articleedit">Artikel anlegen</a>
 	<div class="duration"><%= articleSet.duration %></div>
@@ -13,5 +13,19 @@
 	<p>--------------</p>
 
 	<p id="bid" type="button">Bieten</p>
-
+</div>
+<div style="background-color: palevioletred; float: right; height: 100%; width: 50%;">
+	<ul>
+		<li>
+			<% for (var i in bidList){ %>
+				<ul>
+					<li>bidList[i].bidder</li>
+				</ul>
+				<ul>
+					<li>bidList[i].bidVal</li>
+				</ul>
+			<%}%>
+		</li>
+	</ul>
+</div>
 <% include partitials/footer.ejs%>

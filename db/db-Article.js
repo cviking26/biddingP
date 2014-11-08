@@ -70,17 +70,16 @@ module.exports = {
 		}, callback)
 	},
 	updateArticleById : function(param, callback){
-		this.getArticleByObjId(param.id, function(err, data){
+		this.getArticleById(param.id, function(err, data){
 			if(err){
 				console.log(err);
-				return
+				return;
 			}
-			var newPrice = data.currentPrice + param.increaseVal;
-			this.Article.findByIdAndUpdate(param.id, {
+			this.Article.findByIdAndUpdate(data._id, {
 				$push :{
 					bids : param.bidId
 				},
-				$set: { currentPrice: newPrice }
+				$set: { currentPrice: param.increaseVal }
 			}, callback)
 
 		}.bind(this));

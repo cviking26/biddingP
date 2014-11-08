@@ -53,11 +53,23 @@ module.exports = {
 			_id : param
 		}, callback)
 	},
-	updateUserByObjId : function(param, callback){
-		this.User.findByIdAndUpdate(param.id, {
-			$push:{
-				bids: param.bidId
+	getUserById : function(param, callback){
+		this.User.findOne({
+			bidderId : param
+		}, callback)
+	},
+	updateUserById : function(param, callback){
+		this.getUserById(param.id, function(err, data){
+			if(err){
+				console.log('err');
+				console.log(err);
+				return;
 			}
-		}, callback);
+			this.User.findOneAndUpdate(data._id, {
+				$push:{
+					bids: param.bidId
+				}
+			}, callback);
+		}.bind(this));
 	}
 };
