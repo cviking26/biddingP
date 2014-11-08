@@ -11,8 +11,7 @@ passport.use(new LocalStrategy({
 			bidderId : username,
 			password : password
 		}, function(err, docs){
-			console.log(docs);
-			if(err){
+			if(err || docs === null){
 				return done(null, false);
 			}else{
 				return done(null, {username : docs.bidderId})
@@ -22,7 +21,6 @@ passport.use(new LocalStrategy({
 ));
 
 passport.serializeUser(function(user, done){
-	console.log('serialize');
 	done(null, user.username);
 });
 
@@ -32,6 +30,7 @@ passport.deserializeUser(function(username, done){
 
 global.loggedIn = function loggedIn(req, res, next) {
 	if (req.user) {
+		global.userident = req.user;
 		next();
 	} else {
 		res.redirect('/login');

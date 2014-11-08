@@ -7,11 +7,11 @@ var dbBid = require('../db/db-Bid'),
 io.on('connection', function (socket) {
 	socket.emit('news', { hello: 'world' });
 	socket.on('bid', function (data) {
-		console.log(data.article);
-
+		console.log(data.reqData.substring(9));
+		console.log(userident.username);
 		dbBid.setBid({
-			bidder: '545d18a63a5551439362405b',
-			article: '545df5144218acac98efe99b',
+			bidder: '545e6d6c550b65047c5c6a0f',
+			article: '545e7000fce642e2803cd422',
 			bidValue: 50
 		}, function (data) {
 			dbBid.getBid(data._id, function (data) {
@@ -24,8 +24,10 @@ io.on('connection', function (socket) {
 						console.log(err);
 						return;
 					}
-					console.log('das neue Article Doc');
-					console.log(docs);
+					io.sockets.emit('updatePrice', {
+						articleId : docs.articleId,
+						currentPrice : docs.currentPrice
+					})
 				});
 				dbUser.updateUserByObjId({
 					id: data.bidder,
@@ -35,8 +37,6 @@ io.on('connection', function (socket) {
 						console.log(err);
 						return
 					}
-					console.log('Das neue User Doc');
-					console.log(docs);
 				})
 			});
 

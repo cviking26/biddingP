@@ -14,7 +14,6 @@ function timer(){
 			}
 			var newTime = countdown( new Date(timer[0],timer[1]-1,timer[2],timer[3],timer[4],0,0) ).toString();
 			curItem.html(newTime);
-			console.log($(this));
 		}, 1000);
 	})
 };

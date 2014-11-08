@@ -12,7 +12,7 @@ var UserSchema = new Schema({
 	email : String,
 	password : String,
 	active : Boolean,
-	bids : {}
+	bids : []
 });
 
 // Add auto increment Plugin
@@ -55,7 +55,9 @@ module.exports = {
 	},
 	updateUserByObjId : function(param, callback){
 		this.User.findByIdAndUpdate(param.id, {
-			$set: {bids: param.bidId}
+			$push:{
+				bids: param.bidId
+			}
 		}, callback);
 	}
 };

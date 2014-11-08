@@ -17,7 +17,7 @@ var ArticleSchema = new Schema({
 	imagePath : String,
 	active : Boolean,
 	finished : Boolean,
-	bids : {}
+	bids : []
 });
 
 ArticleSchema.plugin(autoIncrement.plugin, {
@@ -70,18 +70,17 @@ module.exports = {
 		}, callback)
 	},
 	updateArticleById : function(param, callback){
-		console.log('typeof param.id');
-		console.log(typeof param.id);
 		this.getArticleByObjId(param.id, function(err, data){
 			if(err){
 				console.log(err);
 				return
 			}
 			var newPrice = data.currentPrice + param.increaseVal;
-			console.log('+++++newPrice+++++');
-			console.log(newPrice);
 			this.Article.findByIdAndUpdate(param.id, {
-				$set: { bids: param.bidId, currentPrice: newPrice }
+				$push :{
+					bids : param.bidId
+				},
+				$set: { currentPrice: newPrice }
 			}, callback)
 
 		}.bind(this));

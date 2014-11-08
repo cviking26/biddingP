@@ -9,7 +9,7 @@
 	<p><b>start Price </b>   <%= articleSet.startPrice %></p>
 	<p><b>bid Interval </b>  <%= articleSet.bidInterval %></p>
 	<p><b>image Path </b>    <%= articleSet.imagePath %></p>
-	<p><b>current Price </b>    <%= articleSet.currentPrice %></p>
+	<div id="currentPrice<%= articleSet.articleId%>"><%= articleSet.currentPrice %></div>
 	<p>--------------</p>
 
 	<p id="bid" type="button">Bieten</p>
