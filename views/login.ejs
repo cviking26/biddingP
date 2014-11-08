@@ -1,13 +1,26 @@
-<form action="/login" method="post">
-	<input type="text" name="biddingid" placeholder="Bieternummer"/>
-	<input type="text" name="password" placeholder="Passwort" />
-	<input type="submit" />
-</form>
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="/login" method="post">
+		<input type="text" name="biddingid" placeholder="Bieternummer"/>
+		<input type="text" name="password" placeholder="Passwort" />
+		<input type="submit" />
+	</form>
 
-<form action="/adduser" method="post">
-	<input type="text" name="firstname" placeholder="Vorname"/>
-	<input type="text" name="lastname" placeholder="Nachname" />
-	<input type="text" name="email" placeholder="e-Mail" />
-	<input type="text" name="password" placeholder="Passwort" />
-	<input type="submit" />
-</form>
+	<form action="/adduser" method="post">
+		<input type="text" name="firstname" placeholder="Vorname"/>
+		<input type="text" name="lastname" placeholder="Nachname" />
+		<input type="text" name="email" placeholder="e-Mail" />
+		<input type="text" name="password" placeholder="Passwort" />
+		<input type="submit" />
+	</form>
+
+<% if(bidderId){%>
+	<h2>Ihre Bieter ID Lautet: <%= bidderId %></h2>
+<%}%>
+</body>
+</html>

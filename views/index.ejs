@@ -1,27 +1,12 @@
-<!doctype html>
-<html lang="de">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script>
-		var socket = io.connect('http://localhost:1337');
-		socket.on('news', function (data) {
-			console.log(data);
-			socket.emit('my other event', { 'hello': data.hello });
-		});
-	</script>
-	<script src="/public/js/countdown.js"></script>
-	<script src="/public/js/script.js"></script>
-</head>
+<% include partitials/header %>
 <body>
 <h1>AÜS</h1>
 <a href="/admin/articleedit">Artikel anlegen</a>
+
 <% for(var index in articles){ %>
 	<p><b>article Id</b>     <%= articles[index].articleId %></p>
 	<p><b>article Name</b>   <%= articles[index].articleName %></p>
-	<div class="duration"><%= articles[index].duration %></div>
+	<p class="duration">   <%= articles[index].duration %></p>
 	<p><b>start Price </b>   <%= articles[index].startPrice %></p>
 	<p><b>bid Interval </b>  <%= articles[index].bidInterval %></p>
 	<p><b>image Path </b>    <%= articles[index].imagePath %></p>
@@ -29,5 +14,5 @@
 	<a href="/article/<%= articles[index].articleId %>">Artikel zeigen</a>
 	<p>--------------</p>
 <%}%>
-</body>
-</html>
+
+<% include partitials/footer %>

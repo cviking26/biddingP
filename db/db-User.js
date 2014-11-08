@@ -1,9 +1,8 @@
-//require Mongo Stuff
+// Mongo dependencies
 var mongoose = require('mongoose'),
 	Bid = require('./db-Bid'),
 	Schema = mongoose.Schema,
 	autoIncrement = require('mongoose-auto-increment');
-
 
 // Create User Schema
 var UserSchema = new Schema({
@@ -16,6 +15,7 @@ var UserSchema = new Schema({
 	bids : [{ type: Schema.Types.ObjectId, ref: 'BidSchema' }]
 });
 
+// Add auto increment Plugin
 UserSchema.plugin(autoIncrement.plugin, {
 	model: 'User',
 	field: 'bidderId',
@@ -23,22 +23,27 @@ UserSchema.plugin(autoIncrement.plugin, {
 	incrementBy: 1
 });
 
+// User Model
 User = mongoose.model('usercollection', UserSchema);
 
 module.exports = {
-	getUser : function(param, callback){
-		param = param || {};
-		//User.find(param, callback);
+	// get User by Param / no Param = all Users
+	getAllUsers : function(param, callback){
+		param = parama || {};
 		User.find(param, callback);
 	},
-	insertUser : function(data){
+	getUser : function(param, callback){
+		//User.find(param, callback);
+		User.findOne(param, callback);
+	},
+	// insert new User in unsercollection
+	insertUser : function (data, callback){
 		var user = new User(data);
-		user.save( function(error, data){
-			if(error){
+		user.save(function(error, data){
+			if (error){
 				console.log(error);
-			}
-			else{
-				//console.log(data);
+			}else{
+				callback(data.bidderId);
 			}
 		});
 	}

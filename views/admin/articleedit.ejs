@@ -1,18 +1,5 @@
-<!doctype html>
-<html lang="de">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect('http://localhost:1337');
-		socket.on('news', function (data) {
-			console.log(data);
-			socket.emit('my other event', { 'hello': data.hello });
-		});
-	</script>
-</head>
-<body>
+<% include ../partitials/header %>
+
 	<h1>Articleedit Page Admin</h1>
 		<form action="/admin/articleadd" method="post">
 			<input name="articleName" placeholder="articleName"/>
@@ -23,5 +10,5 @@
 			<input name="checked" placeholder="Freigabe"/>
 			<input type="submit" value="Hinzufügen"/>
 		</form>
-</body>
-</html>
+
+<% include ../partitials/footer %>

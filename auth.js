@@ -1,15 +1,23 @@
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy;
+var dbUser = require('./db/db-User.js');
 
 passport.use(new LocalStrategy({
 		usernameField: 'biddingid'
 	},
 	function(username, password, done){
 		//database connect!!!
-		if( username === 'admin' && password === 'dennis'){
-			return done(null, {username: 'admin'});
-		}
-		return done(null, false);
+		dbUser.getUser({
+			bidderId : username,
+			password : password
+		}, function(err, docs){
+			console.log(docs);
+			if(err){
+				return done(null, false);
+			}else{
+				return done(null, {username : docs.bidderId})
+			}
+		});
 	}
 ));
 

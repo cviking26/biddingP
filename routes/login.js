@@ -1,13 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var dbUser = require('../db/db-User'),
-	dbArticle = require('../db/db-Article');
+var dbUser = require('../db/db-User');
 var passport = require('../auth.js');
 
-var bidderIdVal = 0;
-
-/* LOGIN */
-//Post from Login form - login.ejs
+// Login
 router.post('/login',
 	passport.authenticate('local', {
 		successRedirect: '/',
@@ -20,19 +16,8 @@ router.get('/login', function(req, res){
 });
 
 
-/* INDEX */
-router.get('/', loggedIn, function(req, res){
-	dbArticle.getAllArticles({}, function(e, docs){
-		console.log(docs)
-		res.render('index', {
-			articles : docs
-		});
-	});
-});
 
-
-/* ADD NEW USER */
-//Post from addUSer form - login.ejs
+// Add new User
 router.post('/adduser', function(req, res){
 	var data = {
 		firstname : req.body.firstname,
@@ -41,11 +26,16 @@ router.post('/adduser', function(req, res){
 		password : req.body.password,
 		active : true
 	};
-	dbUser.insertUser(data);
+	dbUser.insertUser(data, function(resData){
+		res.render('login', {
+			bidderId : resData
+		});
 
-	res.redirect('/');
+	});
+
 });
 
+// Logout
 router.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/');
