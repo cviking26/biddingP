@@ -30,7 +30,7 @@ passport.deserializeUser(function(username, done){
 
 global.loggedIn = function loggedIn(req, res, next) {
 	if (req.user) {
-		global.userident = req.user;
+		//global.userident = req.user;
 		next();
 	} else {
 		res.redirect('/login');

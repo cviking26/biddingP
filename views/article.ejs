@@ -14,19 +14,25 @@
 
 	<p id="bid" type="button">Bieten</p>
 </div>
-<div style="background-color: palevioletred; float: right; height: 100%; width: 50%;">
-	<table>
-		<tr>
-			<th>Bieter Nummer</th>
-			<th>Bietwert</th>
-			<th>Datum</th>
-		</tr>
-		<% for (var i in bidList){ %>
-		<tr>
-			<td><%= bidList[i].bidder %></td>
-			<td><%= bidList[i].bidValue %></td>
-		</tr>
-		<%}%>
+<div style="background-color: palevioletred; float: right; height: 100%; width: 50%; overflow: scroll; height: 114px;">
+	<table id="bidList<%= articleSet.articleId%>">
+		<thead>
+			<tr>
+				<th>Bieter Nummer</th>
+				<th>Bietwert</th>
+				<th>Datum</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for (var i in bidList){ %>
+			<tr>
+				<td><%= bidList[i].bidder %></td>
+				<td><%= bidList[i].bidValue %></td>
+				<td><%= bidList[i].timestamp %></td>
+			</tr>
+			<%}%>
+		</tbody>
 	</table>
 </div>
+<div style="display: none" id="bidderId"><%= bidderId %></div>
 <% include partitials/footer.ejs%>

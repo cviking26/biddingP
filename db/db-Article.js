@@ -28,20 +28,6 @@ ArticleSchema.plugin(autoIncrement.plugin, {
 
 
 module.exports = {
-	ArticleSchema : new Schema({
-		articleId : Number,
-		articleName : String,
-		duration : String,
-		start : Date,
-		end : Date,
-		startPrice : Number,
-		currentPrice : Number,
-		bidInterval : Number,
-		imagePath : String,
-		active : Boolean,
-		finished : Boolean,
-		bids : {}
-	}),
 	Article : mongoose.model('articlecollection', ArticleSchema),
 	getAllArticles : function(param, callback){
 		param = param || {};

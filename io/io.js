@@ -8,13 +8,14 @@ io.on('connection', function (socket) {
 	socket.emit('news', { hello: 'world' });
 	socket.on('bid', function (data) {
 		var articleId = data.reqData.substring(9);
+		var bidderId = data.bidderId;
 		dbArticle.getArticleById(articleId, function(err, docs){
 			if(err){
 				console.log('Error io.js-13');
 				return;
 			}
 			dbBid.setBid({
-				bidder: userident.username,
+				bidder: bidderId,
 				article: articleId,
 				bidValue: docs.bidInterval + docs.currentPrice
 			}, function (data) {
@@ -31,6 +32,12 @@ io.on('connection', function (socket) {
 						io.sockets.emit('updatePrice', {
 							articleId : docs.articleId,
 							currentPrice : docs.currentPrice
+						});
+						io.sockets.emit('updateBidList', {
+							articleId : data.article,
+							bidderId : data.bidder,
+							bidVal : data.bidValue,
+							timestamp : data.timestamp
 						})
 					});
 					dbUser.updateUserById({

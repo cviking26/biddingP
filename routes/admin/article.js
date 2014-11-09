@@ -30,6 +30,7 @@ router.post('/admin/articleadd', loggedIn, function(req, res){
 // Get article by Id
 router.get('/article/:articleId', loggedIn, function(req, res){
 	var articleId = req.params.articleId;
+	var bidderId = req.user.username;
 	dbArticle.getArticleById(articleId, function(err, articleDocs){
 		if(err){
 			console.log(err);
@@ -37,12 +38,13 @@ router.get('/article/:articleId', loggedIn, function(req, res){
 		}
 		console.log('articleDocs')
 		console.log(articleDocs)
-		dbBid.getBidList('10006', function(err, bidDocs){
+		dbBid.getBidList(articleId, function(err, bidDocs){
 			console.log('bidDocs');
 			console.log(bidDocs);
 			res.render('article', {
 				articleSet : articleDocs,
-				bidList : bidDocs
+				bidList : bidDocs,
+				bidderId : bidderId
 			});
 		});
 	});

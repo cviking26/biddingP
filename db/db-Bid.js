@@ -11,7 +11,7 @@ var BidSchema = new Schema({
 	bidder: String,
 	article: String,
 	bidValue: Number,
-	timestamp: Date
+	timestamp: {type : Date, default: Date.now}
 });
 
 module.exports = {
@@ -40,6 +40,6 @@ module.exports = {
 	getBidList: function (param, callback) {
 		this.Bid.find({
 			article: param
-		}, callback);
+		}, null, {sort : {timestamp : 'desc'}}, callback);
 	}
 };
