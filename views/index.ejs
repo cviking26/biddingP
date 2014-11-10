@@ -4,6 +4,7 @@
 <a href="/admin/articleedit">Artikel anlegen</a>
 
 <% for(var index in articles){ %>
+<div>
 	<p><b>article Id</b>     <%= articles[index].articleId %></p>
 	<p><b>article Name</b>   <%= articles[index].articleName %></p>
 	<p class="duration">   <%= articles[index].duration %></p>
@@ -14,6 +15,7 @@
 
 <a href="/article/<%= articles[index].articleId %>">Artikel zeigen</a>
 	<p>--------------</p>
+</div>
 <%}%>
 
 <% include partitials/footer %>

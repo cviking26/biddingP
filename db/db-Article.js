@@ -8,7 +8,6 @@ var ArticleSchema = new Schema({
 	articleId : Number,
 	articleName : String,
 	duration : String,
-	start : Date,
 	end : Date,
 	startPrice : Number,
 	currentPrice : Number,
@@ -68,6 +67,20 @@ module.exports = {
 			}, callback)
 
 		}.bind(this));
+	},
+	checkLiving : function(param, callback){
+		var tableDate = new Date(2014,11,15,18,02,00);
+		var now = new Date();
+
+		if(now <= tableDate){
+			console.log('ist noch activ');
+		}else{
+			console.log('abgelaufen');
+		}
+
+		this.Article.find({}, function(){
+
+		})
 	}
 
 };
