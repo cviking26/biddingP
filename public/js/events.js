@@ -1,5 +1,6 @@
 
-var socket = io.connect('http://192.168.178.207:1337');
+// var socket = io.connect('http://192.168.178.207:1337');
+var socket = io.connect('http://localhost:1337');
 socket.on('news', function (data) {
 	//console.log(data);
 });

@@ -13,7 +13,7 @@ var ArticleSchema = new Schema({
 	currentPrice : Number,
 	bidInterval : Number,
 	imagePath : String,
-	active : Boolean,
+	active : { type: Boolean, default: false },
 	finished : Boolean,
 	bids : []
 });

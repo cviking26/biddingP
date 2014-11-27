@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 	lastname : String,
 	email : String,
 	password : String,
-	active : Boolean,
+	active : { type: Boolean, default: false },
 	bids : []
 });
 
