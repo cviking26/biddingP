@@ -31,16 +31,18 @@ router.post('/admin/articleadd', loggedIn, function(req, res){
 router.get('/article/:articleId', loggedIn, function(req, res){
 	var articleId = req.params.articleId;
 	var bidderId = req.user.username;
+	// Get ArticleDocs By IDx
 	dbArticle.getArticleById(articleId, function(err, articleDocs){
 		if(err){
-			console.log(err);
+			console.log('ERROR RouterGetArticle - GetArticleById', err);
 			return;
 		}
-		console.log('articleDocs')
-		console.log(articleDocs)
+		// Get BidList for requested Article
 		dbBid.getBidList(articleId, function(err, bidDocs){
-			console.log('bidDocs');
-			console.log(bidDocs);
+			if(err){
+				console.log('ERROR RouterGetArticle - GetBidList', err);
+				return;
+			}
 			res.render('article', {
 				articleSet : articleDocs,
 				bidList : bidDocs,

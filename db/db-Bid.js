@@ -3,8 +3,6 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 var ObjectId = require('mongoose').Types.ObjectId;
 
-/*var UserSchema = User.UserSchema;
- var ArticleSchema = Article.ArticleSchema;*/
 
 //create Bidding Schema
 var BidSchema = new Schema({
@@ -16,6 +14,7 @@ var BidSchema = new Schema({
 
 module.exports = {
 	Bid: mongoose.model('bidcollection', BidSchema),
+	//setBid with given data
 	setBid: function (data, callback) {
 		var bid = new this.Bid(data);
 		bid.save(function (error, data) {
@@ -27,6 +26,7 @@ module.exports = {
 			}
 		});
 	},
+	//getBid by Bid_id
 	getBid: function (param, callback) {
 		this.Bid
 			.findOne({ _id: param }, function (err, data) {
@@ -37,6 +37,7 @@ module.exports = {
 				callback(data);
 			});
 	},
+	// getBidList by ArticleId
 	getBidList: function (param, callback) {
 		this.Bid.find({
 			article: param

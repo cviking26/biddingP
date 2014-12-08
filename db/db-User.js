@@ -11,6 +11,7 @@ var UserSchema = new Schema({
 	lastname : String,
 	email : String,
 	password : String,
+	role : { type: String, default: 'user' },
 	active : { type: Boolean, default: false },
 	bids : []
 });
@@ -30,7 +31,7 @@ module.exports = {
 
 	// get User by Param / no Param = all Users
 	getAllUsers : function(param, callback){
-		param = parama || {};
+		param = param || {};
 		this.User.find(param, callback);
 	},
 	getUser : function(param, callback){

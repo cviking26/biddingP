@@ -43,7 +43,7 @@ io.on('connection', function (socket) {
 					dbUser.updateUserById({
 						id: data.bidder,
 						bidId: data._id
-					}, function(err, docs){
+					}, function(err){
 						if(err){
 							console.log(err);
 							return;
